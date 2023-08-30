@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cstdlib>
 #include <iostream>
 #include <random>
 #include <string>
@@ -129,13 +130,21 @@ std::array<Card, 52> newDeck()
     return deck ;
 }
 
+// lets do a function to print a single card
+void printCard( const Card& card )
+{
+    std::cout << getRank(card.rank) << getSuit(card.suit) ;
+}
+
 template <typename T>
 void printDeck( const T& deck )
 {
     for ( const auto& card : deck )
     {
-        std::cout << getRank(card.rank) << getSuit(card.suit) << ' ' ;
+        printCard( card ) ;
+        std::cout << ' ' ;
     }
+    std::cout << '\n' ;
 }
 
 void shuffleDeck( std::array<Card, 52>& deck )
@@ -150,6 +159,96 @@ void dealCard( const std::array<Card, 52>& deck , Player& player , int& deckInde
     ++deckIndex ;
 }
 
+int evaluateCard( const CardRank& rank )
+{
+    int cardValue { getRank( rank ) } ;
+    
+    if (cardValue == 'T' || cardValue == 'J' || cardValue == 'Q' || cardValue == 'K')
+    {
+        cardValue = 10 ;
+    }
+    else if ( cardValue == 'A' )
+    {
+        cardValue = 11 ;
+    }
+    else
+    {
+        cardValue = cardValue - '0' ;
+    }
+    
+    return cardValue ;
+}
+
+int evaluateHand( const Player& player )
+{
+    int totalValue { 0 } ;
+    for ( const auto& card : player.hand )
+    {
+        totalValue += evaluateCard( card.rank ) ;
+    }
+    
+    return totalValue ;
+}
+
+// return true for hit
+bool hitOrStay()
+{
+    while ( true )
+    {
+        std::cout << "Hit or Stay (h or s)? " ;
+        char input { } ;
+        std::cin >> input ;
+        
+        if ( input == 'h' )
+        {
+            return true ;
+        }
+        else if ( input == 's' )
+        {
+            return false ;
+        }
+        
+        std::cout << "Error! Invalid Input\n" ;
+    }
+}
+
+void playBlackJack( const std::array<Card, 52>& deck )
+{
+    int deckIndex { 0 } ;
+    
+    Player dealer { "Dealer" } ;
+    Player player1 { "Player One" } ;
+    
+    // Dealer starts with one card
+    dealCard( deck, dealer, deckIndex ) ;
+    std::cout << dealer.name << " Hand: " ;
+    printDeck( dealer.hand ) ;
+    std::cout << "Score: " << evaluateHand( dealer ) << '\n' ;
+
+    // player starts with two cards
+    dealCard( deck, player1, deckIndex ) ;
+    dealCard( deck, player1, deckIndex ) ;
+    
+    std::cout << player1.name << " Hand: " ;
+    printDeck( player1.hand ) ;
+    std::cout << "Score: " << evaluateHand( player1 ) << '\n' ;
+
+    while ( true )
+    {
+        // A function to ask the player if they want to hit
+        // player goes first
+        if ( hitOrStay() )
+        {
+            std::cout << "You drew a " ;
+            printCard( deck[deckIndex] ) ;
+            std::cout << '\n' ;
+            dealCard( deck, player1, deckIndex ) ;
+            printDeck( player1.hand ) ;
+            std::cout << "Score: " << evaluateHand( player1 ) << '\n' ;
+            
+        }
+    }
+}
 
 int main(int argc, const char * argv[])
 {
@@ -175,7 +274,10 @@ int main(int argc, const char * argv[])
     // We need a way to shuffle the deck
     shuffleDeck( deck ) ;
     
+    
     std::cout << '\n' ;
+    
+    playBlackJack( deck ) ;
     
     // we now have our deck of cards
     
@@ -187,17 +289,30 @@ int main(int argc, const char * argv[])
         // This should be pretty simple
         // we need to keep track of the deckIndex
         // Then we just deal the card at whatever the index is
-    int deckIndex { 0 } ;
-    Player p1 { "Player One" } ;
-    dealCard( deck , p1 , deckIndex ) ;
+//    int deckIndex { 0 } ;
+//    Player p1 { "Player One" } ;
+//    dealCard( deck , p1 , deckIndex ) ;
+//
+//    dealCard( deck , p1 , deckIndex ) ;
+//
+//    std::cout << '\n' ;
+//
+//    std::cout << evaluateCard( p1.hand[0].rank ) ;
+//
+//    std::cout << '\n' ;
+//
+//    printDeck( p1.hand ) ;
+//
+//    std::cout << '\n' ;
+//
+//    std::cout << evaluateHand( p1 ) << '\n' ;
     
-    dealCard( deck , p1 , deckIndex ) ;
-
-    
-    printDeck( p1.hand ) ;
+    // Now lets get a function to play blackjack
     
     
-    // We need a way to count the value of each card
+    // A function to evaluate the hand
+        // We need a way to count the value of each card
+    
     
     // We need a hit or stand function
         // if it is playerTurn
