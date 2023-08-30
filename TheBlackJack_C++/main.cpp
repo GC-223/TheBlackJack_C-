@@ -11,135 +11,19 @@
 #include <iostream>
 #include <random>
 #include <string>
+#include "card.hpp"
+#include "player.hpp"
+#include "deck.hpp"
 
 
-enum class CardSuit
-{
-    diamond ,
-    heart ,
-    spade ,
-    club ,
-    
-    maxSuit ,
-} ;
-
-enum class CardRank
-{
-    two ,
-    three ,
-    four ,
-    five ,
-    six ,
-    seven ,
-    eight ,
-    nine ,
-    ten ,
-    jack ,
-    queen ,
-    king ,
-    ace ,
-    
-    maxRank ,
-} ;
-
-struct Card
-{
-    CardSuit suit { } ;
-    CardRank rank { } ;
-} ;
 
 
-struct Player
-{
-    std::string name { } ;
-    std::vector<Card> hand { } ;
-} ;
 
-
-char getSuit( const CardSuit& suit )
-{
-    switch ( suit )
-    {
-        using enum CardSuit ;
-        case diamond:
-            return 'D' ;
-        case heart:
-            return 'H' ;
-        case spade:
-            return 'S' ;
-        case club:
-            return 'C' ;
-        default:
-            std::cout << "Error\n" ;
-            return NULL ;
-    }
-}
-
-char getRank( const CardRank& rank )
-{
-    switch ( rank )
-    {
-        using enum CardRank ;
-        case two:
-            return '2' ;
-        case three:
-            return '3' ;
-        case four:
-            return '4' ;
-        case five:
-            return '5' ;
-        case six:
-            return '6' ;
-        case seven:
-            return '7' ;
-        case eight:
-            return '8' ;
-        case nine:
-            return '9' ;
-        case ten:
-            return 'T' ;
-        case jack:
-            return 'J' ;
-        case queen:
-            return 'Q' ;
-        case king:
-            return 'K' ;
-        case ace:
-            return 'A' ;
-        default:
-            std::cout << "Error\n" ;
-            return NULL ;
-    }
-}
-
-
-std::array<Card, 52> newDeck()
-{
-    std::array<Card, 52> deck { } ;
-    
-    int deckIndex { 0 } ;
-    for ( int suit = 0 ; suit < static_cast<int>(CardSuit::maxSuit) ; ++suit )
-    {
-        for ( int rank = 0 ; rank < static_cast<int>(CardRank::maxRank) ; ++rank )
-        {
-            Card card { static_cast<CardSuit>(suit) , static_cast<CardRank>(rank) } ;
-            deck[deckIndex] = card ;
-            ++deckIndex ;
-        }
-    }
-    return deck ;
-}
-
-// lets do a function to print a single card
-void printCard( const Card& card )
-{
-    std::cout << getRank(card.rank) << getSuit(card.suit) ;
-}
 
 template <typename T>
-void printDeck( const T& deck )
+void printHand( const T& hand )
 {
-    for ( const auto& card : deck )
+    for ( const auto& card : hand )
     {
         printCard( card ) ;
         std::cout << ' ' ;
@@ -147,48 +31,11 @@ void printDeck( const T& deck )
     std::cout << '\n' ;
 }
 
-void shuffleDeck( std::array<Card, 52>& deck )
-{
-    std::mt19937 mt { std::random_device{}() } ;
-    std::shuffle( deck.begin() , deck.end() , mt ) ;
-}
 
-void dealCard( const std::array<Card, 52>& deck , Player& player , int& deckIndex )
-{
-    player.hand.push_back( deck[deckIndex] ) ;
-    ++deckIndex ;
-}
 
-int evaluateCard( const CardRank& rank )
-{
-    int cardValue { getRank( rank ) } ;
-    
-    if (cardValue == 'T' || cardValue == 'J' || cardValue == 'Q' || cardValue == 'K')
-    {
-        cardValue = 10 ;
-    }
-    else if ( cardValue == 'A' )
-    {
-        cardValue = 11 ;
-    }
-    else
-    {
-        cardValue = cardValue - '0' ;
-    }
-    
-    return cardValue ;
-}
 
-int evaluateHand( const Player& player )
-{
-    int totalValue { 0 } ;
-    for ( const auto& card : player.hand )
-    {
-        totalValue += evaluateCard( card.rank ) ;
-    }
-    
-    return totalValue ;
-}
+
+
 
 // return true for hit
 bool hitOrStay()
@@ -212,7 +59,74 @@ bool hitOrStay()
     }
 }
 
-void playBlackJack( const std::array<Card, 52>& deck )
+// function to tell if bust
+bool isBust( Player& player )
+{
+    return evaluateHand( player ) > 21 ;
+}
+
+// Make this into a PlayerTurn function
+// return true when player busts
+bool playerTurn( const std::array<Card, 52>& deck , Player& player , int& deckIndex )
+{
+    while ( true )
+    {
+        if ( hitOrStay() )
+        {
+            std::cout << player.name << " drew a " ;
+            printCard( deck[deckIndex] ) ;
+            std::cout << '\n' ;
+            dealCard( deck, player, deckIndex ) ;
+            printHand( player.hand ) ;
+            std::cout << "Score: " << evaluateHand( player ) << '\n' ;
+            
+            if ( isBust( player ) )
+            {
+                std::cout << player.name << " Bust\n" ;
+                return true ;
+            }
+        }
+        else
+        {
+            return false ;
+        }
+    }
+}
+
+bool dealerTurn( const std::array<Card, 52>& deck , Player& player , int& deckIndex )
+{
+    while ( true )
+    {
+        if ( evaluateHand(player) < 17 )
+        {
+            std::cout << player.name << " drew a " ;
+            printCard( deck[deckIndex] ) ;
+            std::cout << '\n' ;
+            dealCard( deck, player, deckIndex ) ;
+            printHand( player.hand ) ;
+            std::cout << "Score: " << evaluateHand( player ) << '\n' ;
+            
+            if ( isBust( player ) )
+            {
+                std::cout << player.name << " Bust\n" ;
+                return true ;
+            }
+        }
+        else
+        {
+            return false ;
+        }
+    }
+}
+
+// return true if you win
+bool winOrLose( Player& player , Player& dealer )
+{
+    return evaluateHand( player ) > evaluateHand( dealer ) ;
+}
+
+
+bool playBlackJack( const std::array<Card, 52>& deck )
 {
     int deckIndex { 0 } ;
     
@@ -222,7 +136,7 @@ void playBlackJack( const std::array<Card, 52>& deck )
     // Dealer starts with one card
     dealCard( deck, dealer, deckIndex ) ;
     std::cout << dealer.name << " Hand: " ;
-    printDeck( dealer.hand ) ;
+    printHand( dealer.hand ) ;
     std::cout << "Score: " << evaluateHand( dealer ) << '\n' ;
 
     // player starts with two cards
@@ -230,24 +144,39 @@ void playBlackJack( const std::array<Card, 52>& deck )
     dealCard( deck, player1, deckIndex ) ;
     
     std::cout << player1.name << " Hand: " ;
-    printDeck( player1.hand ) ;
+    printHand( player1.hand ) ;
     std::cout << "Score: " << evaluateHand( player1 ) << '\n' ;
 
-    while ( true )
+    
+    if ( playerTurn( deck , player1 , deckIndex ) )
     {
-        // A function to ask the player if they want to hit
-        // player goes first
-        if ( hitOrStay() )
-        {
-            std::cout << "You drew a " ;
-            printCard( deck[deckIndex] ) ;
-            std::cout << '\n' ;
-            dealCard( deck, player1, deckIndex ) ;
-            printDeck( player1.hand ) ;
-            std::cout << "Score: " << evaluateHand( player1 ) << '\n' ;
-            
-        }
+        std::cout << "You Lose" ;
+        return false ;
     }
+    
+    if ( dealerTurn( deck , dealer , deckIndex ) )
+    {
+        std::cout << "You Win!" ;
+        return true ;
+    };
+    
+    if ( winOrLose( player1 , dealer ) )
+    {
+        return true ;
+    }
+    else
+    {
+        return false ;
+    }
+}
+
+int getNumPlayers()
+{
+    std::cout << "How many players (excluding dealer)? " ;
+    int numPlayers { } ;
+    std::cin >> numPlayers ;
+    
+    return numPlayers ;
 }
 
 int main(int argc, const char * argv[])
@@ -269,15 +198,32 @@ int main(int argc, const char * argv[])
         // we loop through the deck
         // at each element
             // we need a way to print rank and suit
-    printDeck( deck ) ;
+    printHand( deck ) ;
     
     // We need a way to shuffle the deck
     shuffleDeck( deck ) ;
     
     
+    // We can implement this functionality much later
+//    // lets add a function that will give us a number of players
+//    int numPlayers { getNumPlayers() } ;
+//
+//    // now a function to populate the player vector with players
+//    std::vector<Player> players { } ;
+    
+    
     std::cout << '\n' ;
     
-    playBlackJack( deck ) ;
+    if ( playBlackJack( deck ) )
+    {
+        std::cout << "You Win!\n" ;
+    }
+    else
+    {
+        std::cout << "You Lose\n" ;
+    }
+    
+    
     
     // we now have our deck of cards
     
@@ -289,23 +235,7 @@ int main(int argc, const char * argv[])
         // This should be pretty simple
         // we need to keep track of the deckIndex
         // Then we just deal the card at whatever the index is
-//    int deckIndex { 0 } ;
-//    Player p1 { "Player One" } ;
-//    dealCard( deck , p1 , deckIndex ) ;
-//
-//    dealCard( deck , p1 , deckIndex ) ;
-//
-//    std::cout << '\n' ;
-//
-//    std::cout << evaluateCard( p1.hand[0].rank ) ;
-//
-//    std::cout << '\n' ;
-//
-//    printDeck( p1.hand ) ;
-//
-//    std::cout << '\n' ;
-//
-//    std::cout << evaluateHand( p1 ) << '\n' ;
+
     
     // Now lets get a function to play blackjack
     

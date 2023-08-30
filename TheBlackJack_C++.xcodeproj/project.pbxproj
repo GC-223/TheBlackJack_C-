@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		96A906872A9FA21D00682FB4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96A906862A9FA21D00682FB4 /* main.cpp */; };
+		96A906922A9FCE2A00682FB4 /* card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96A906902A9FCE2A00682FB4 /* card.cpp */; };
+		96A906952A9FCF3300682FB4 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96A906932A9FCF3300682FB4 /* player.cpp */; };
+		96A906982A9FD09D00682FB4 /* blackJack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96A906962A9FD09D00682FB4 /* blackJack.cpp */; };
+		96A9069B2A9FD0F300682FB4 /* deck.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96A906992A9FD0F300682FB4 /* deck.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +29,14 @@
 /* Begin PBXFileReference section */
 		96A906832A9FA21D00682FB4 /* TheBlackJack_C++ */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "TheBlackJack_C++"; sourceTree = BUILT_PRODUCTS_DIR; };
 		96A906862A9FA21D00682FB4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		96A906902A9FCE2A00682FB4 /* card.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = card.cpp; sourceTree = "<group>"; };
+		96A906912A9FCE2A00682FB4 /* card.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = card.hpp; sourceTree = "<group>"; };
+		96A906932A9FCF3300682FB4 /* player.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = player.cpp; sourceTree = "<group>"; };
+		96A906942A9FCF3300682FB4 /* player.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = player.hpp; sourceTree = "<group>"; };
+		96A906962A9FD09D00682FB4 /* blackJack.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = blackJack.cpp; sourceTree = "<group>"; };
+		96A906972A9FD09D00682FB4 /* blackJack.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = blackJack.hpp; sourceTree = "<group>"; };
+		96A906992A9FD0F300682FB4 /* deck.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = deck.cpp; sourceTree = "<group>"; };
+		96A9069A2A9FD0F300682FB4 /* deck.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = deck.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +70,14 @@
 			isa = PBXGroup;
 			children = (
 				96A906862A9FA21D00682FB4 /* main.cpp */,
+				96A906932A9FCF3300682FB4 /* player.cpp */,
+				96A906942A9FCF3300682FB4 /* player.hpp */,
+				96A906992A9FD0F300682FB4 /* deck.cpp */,
+				96A9069A2A9FD0F300682FB4 /* deck.hpp */,
+				96A906902A9FCE2A00682FB4 /* card.cpp */,
+				96A906912A9FCE2A00682FB4 /* card.hpp */,
+				96A906962A9FD09D00682FB4 /* blackJack.cpp */,
+				96A906972A9FD09D00682FB4 /* blackJack.hpp */,
 			);
 			path = "TheBlackJack_C++";
 			sourceTree = "<group>";
@@ -119,7 +139,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96A906982A9FD09D00682FB4 /* blackJack.cpp in Sources */,
 				96A906872A9FA21D00682FB4 /* main.cpp in Sources */,
+				96A906922A9FCE2A00682FB4 /* card.cpp in Sources */,
+				96A9069B2A9FD0F300682FB4 /* deck.cpp in Sources */,
+				96A906952A9FCF3300682FB4 /* player.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
