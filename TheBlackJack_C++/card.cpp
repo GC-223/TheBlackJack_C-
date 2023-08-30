@@ -27,7 +27,7 @@ char getSuit( const CardSuit& suit )
     }
 }
 
-// get the rank of a card
+// get the rank of the card
 char getRank( const CardRank& rank )
 {
     switch ( rank )
@@ -71,7 +71,7 @@ void printCard( const Card& card )
     std::cout << getRank(card.rank) << getSuit(card.suit) ;
 }
 
-// get the integer value of a card
+// get the int value of the card
 int getCardValue( const CardRank& rank )
 {
     char cardValue { getRank( rank ) } ;

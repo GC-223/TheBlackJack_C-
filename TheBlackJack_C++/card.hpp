@@ -45,12 +45,16 @@ struct Card
     CardRank rank { } ;
 } ;
 
+// get suit of the card
 char getSuit( const CardSuit& suit ) ;
 
+// get the rank of the card
 char getRank( const CardRank& rank ) ;
 
+// print a card
 void printCard( const Card& card ) ;
 
+// get the int value of the card
 int getCardValue( const CardRank& rank ) ;
 
 

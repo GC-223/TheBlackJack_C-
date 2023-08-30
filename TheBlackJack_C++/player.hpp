@@ -18,6 +18,11 @@ struct Player
     std::vector<Card> hand { } ;
 } ;
 
+// Get the total score of the hand
 int evaluateHand( const Player& player ) ;
+
+// we can print the player hand, or we can print the entire deck for this function
+template <typename T>
+void printHand( const T& hand ) ;
 
 #endif /* player_hpp */

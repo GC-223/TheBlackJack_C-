@@ -14,10 +14,13 @@
 #include "card.hpp"
 #include "player.hpp"
 
+// Creates a brand new (non-shuffled) deck of cards
 std::array<Card, 52> newDeck() ;
 
+// shuffles the deck
 void shuffleDeck( std::array<Card, 52>& deck ) ;
 
+// deals one card to a player
 void dealCard( const std::array<Card, 52>& deck , Player& player , int& deckIndex ) ;
 
 
