@@ -9,6 +9,8 @@
 #include <array>
 #include <iostream>
 #include <random>
+#include <string>
+
 
 enum class CardSuit
 {
@@ -43,6 +45,13 @@ struct Card
 {
     CardSuit suit { } ;
     CardRank rank { } ;
+} ;
+
+
+struct Player
+{
+    std::string name { } ;
+    std::vector<Card> hand { } ;
 } ;
 
 
@@ -120,11 +129,12 @@ std::array<Card, 52> newDeck()
     return deck ;
 }
 
-void printDeck( const std::array<Card, 52>& deck )
+template <typename T>
+void printDeck( const T& deck )
 {
-    for ( int i = 0 ; i < 52 ; ++i )
+    for ( const auto& card : deck )
     {
-        std::cout << getRank(deck[i].rank) << getSuit(deck[i].suit) << ' ' ;
+        std::cout << getRank(card.rank) << getSuit(card.suit) << ' ' ;
     }
 }
 
@@ -133,6 +143,13 @@ void shuffleDeck( std::array<Card, 52>& deck )
     std::mt19937 mt { std::random_device{}() } ;
     std::shuffle( deck.begin() , deck.end() , mt ) ;
 }
+
+void dealCard( const std::array<Card, 52>& deck , Player& player , int& deckIndex )
+{
+    player.hand.push_back( deck[deckIndex] ) ;
+    ++deckIndex ;
+}
+
 
 int main(int argc, const char * argv[])
 {
@@ -159,12 +176,26 @@ int main(int argc, const char * argv[])
     shuffleDeck( deck ) ;
     
     std::cout << '\n' ;
-    printDeck( deck ) ;
     
     // we now have our deck of cards
-    // We 
     
-    // We need a way to deal cards
+    // We could have a player as a structure
+        // within the structure is a vector for the hand
+        // Perhaps even a string for the name of the player
+    
+    // We need a way to deal cards to a players hand
+        // This should be pretty simple
+        // we need to keep track of the deckIndex
+        // Then we just deal the card at whatever the index is
+    int deckIndex { 0 } ;
+    Player p1 { "Player One" } ;
+    dealCard( deck , p1 , deckIndex ) ;
+    
+    dealCard( deck , p1 , deckIndex ) ;
+
+    
+    printDeck( p1.hand ) ;
+    
     
     // We need a way to count the value of each card
     
