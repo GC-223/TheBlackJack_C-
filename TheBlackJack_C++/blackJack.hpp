@@ -9,9 +9,12 @@
 #define blackJack_hpp
 
 #include "card.hpp"
-#include "player.hpp"
 #include "deck.hpp"
-#include <vector>
+#include "player.hpp"
+
+
+
+
 
 // true if the player wins
 bool playBlackJack( const std::array<Card, 52>& deck ) ;

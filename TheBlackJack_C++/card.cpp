@@ -7,6 +7,7 @@
 
 #include "card.hpp"
 
+
 // get the suit of a card
 char getSuit( const CardSuit& suit )
 {

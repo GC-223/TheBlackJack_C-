@@ -11,8 +11,23 @@
 #include <array>
 #include <iostream>
 #include <random>
+
 #include "card.hpp"
 #include "player.hpp"
+
+
+// we can print the player hand, or we can print the entire deck for this function
+template <typename T>
+void printHand( const T& hand )
+{
+    for ( const auto& card : hand )
+    {
+        printCard( card ) ;
+        std::cout << ' ' ;
+    }
+    std::cout << '\n' ;
+}
+
 
 // Creates a brand new (non-shuffled) deck of cards
 std::array<Card, 52> newDeck() ;
@@ -21,7 +36,9 @@ std::array<Card, 52> newDeck() ;
 void shuffleDeck( std::array<Card, 52>& deck ) ;
 
 // deals one card to a player
+// maybe this should be in playBlackJack
 void dealCard( const std::array<Card, 52>& deck , Player& player , int& deckIndex ) ;
+
 
 
 #endif /* deck_hpp */

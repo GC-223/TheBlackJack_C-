@@ -70,14 +70,14 @@
 			isa = PBXGroup;
 			children = (
 				96A906862A9FA21D00682FB4 /* main.cpp */,
-				96A906932A9FCF3300682FB4 /* player.cpp */,
-				96A906942A9FCF3300682FB4 /* player.hpp */,
-				96A906992A9FD0F300682FB4 /* deck.cpp */,
-				96A9069A2A9FD0F300682FB4 /* deck.hpp */,
-				96A906902A9FCE2A00682FB4 /* card.cpp */,
-				96A906912A9FCE2A00682FB4 /* card.hpp */,
-				96A906962A9FD09D00682FB4 /* blackJack.cpp */,
 				96A906972A9FD09D00682FB4 /* blackJack.hpp */,
+				96A906962A9FD09D00682FB4 /* blackJack.cpp */,
+				96A906912A9FCE2A00682FB4 /* card.hpp */,
+				96A906902A9FCE2A00682FB4 /* card.cpp */,
+				96A9069A2A9FD0F300682FB4 /* deck.hpp */,
+				96A906992A9FD0F300682FB4 /* deck.cpp */,
+				96A906942A9FCF3300682FB4 /* player.hpp */,
+				96A906932A9FCF3300682FB4 /* player.cpp */,
 			);
 			path = "TheBlackJack_C++";
 			sourceTree = "<group>";

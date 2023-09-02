@@ -7,10 +7,14 @@
 
 #include <array>
 #include <iostream>
-#include "card.hpp"
-#include "player.hpp"
-#include "deck.hpp"
+
 #include "blackJack.hpp"
+#include "card.hpp"
+#include "deck.hpp"
+#include "player.hpp"
+
+
+
 
 
 int getNumPlayers()
@@ -22,17 +26,7 @@ int getNumPlayers()
     return numPlayers ;
 }
 
-// we can print the player hand, or we can print the entire deck for this function
-template <typename T>
-void printHand( const T& hand )
-{
-    for ( const auto& card : hand )
-    {
-        printCard( card ) ;
-        std::cout << ' ' ;
-    }
-    std::cout << '\n' ;
-}
+
 
 int main(int argc, const char * argv[])
 {

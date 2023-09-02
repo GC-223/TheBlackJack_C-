@@ -7,6 +7,8 @@
 
 #include "deck.hpp"
 
+
+
 // Creates a brand new (non-shuffled) deck of cards
 std::array<Card, 52> newDeck()
 {
@@ -38,3 +40,5 @@ void dealCard( const std::array<Card, 52>& deck , Player& player , int& deckInde
     player.hand.push_back( deck[deckIndex] ) ;
     ++deckIndex ;
 }
+
+
