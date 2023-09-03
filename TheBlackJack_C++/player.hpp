@@ -16,11 +16,16 @@ struct Player
 {
     std::string name { } ;
     std::vector<Card> hand { } ;
+    bool isBust { false } ;
 } ;
 
 // Get the total score of the hand
 int evaluateHand( const Player& player ) ;
 
+int getNumPlayers() ;
 
+void givePlayerName( std::vector<Player>& players ) ;
+
+void printAllPlayers( const std::vector<Player>& players ) ;
 
 #endif /* player_hpp */

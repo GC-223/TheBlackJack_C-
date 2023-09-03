@@ -13,36 +13,46 @@ bool playBlackJack( const std::array<Card, 52>& deck )
 {
     int deckIndex { 0 } ;
     
-    Player dealer { "Dealer" } ;
-    Player player { "Player One" } ;
+    std::vector<Player> players (getNumPlayers() + 1 ) ;
     
-    // Dealer starts with one card
-    dealCard( deck, dealer, deckIndex ) ;
-    std::cout << dealer.name << " Hand: " ;
-    printHand( dealer.hand ) ;
-    std::cout << dealer.name << "Score: " << evaluateHand( dealer ) << '\n' ;
-
-    // player starts with two cards
-    dealCard( deck, player, deckIndex ) ;
-    dealCard( deck, player, deckIndex ) ;
     
-    std::cout << player.name << " Hand: " ;
-    printHand( player.hand ) ;
-    std::cout << player.name << "Score: " << evaluateHand( player ) << '\n' ;
+    givePlayerName( players ) ;
+    
+//    Player dealer { "Dealer" } ;
+//    Player player { "Player One" } ;
+    
+//    // Dealer starts with one card
+//    dealCard( deck, dealer, deckIndex ) ;
+//    std::cout << dealer.name << " Hand: " ;
+//    printHand( dealer.hand ) ;
+//    std::cout << dealer.name << " Score: " << evaluateHand( dealer ) << '\n' ;
+//
+//    // player starts with two cards
+//    dealCard( deck, player, deckIndex ) ;
+//    dealCard( deck, player, deckIndex ) ;
+    
+//    std::cout << player.name << " Hand: " ;
+//    printHand( player.hand ) ;
+//    std::cout << player.name << "Score: " << evaluateHand( player ) << '\n' ;
 
+    startingHands( players , deck , deckIndex ) ;
+    
+    printAllPlayers( players ) ;
+    
     // if player busts
-    if ( playerTurn( deck , player , deckIndex ) )
-    {
-        return false ;
-    }
-    
-    if ( dealerTurn( deck , dealer , deckIndex ) )
-    {
-        return true ;
-    };
-    
-    
-    return ( winOrLose( player , dealer ) ) ;
+//    if ( playerTurn( deck , player , deckIndex ) )
+//    {
+//        return false ;
+//    }
+//
+//    if ( dealerTurn( deck , dealer , deckIndex ) )
+//    {
+//        return true ;
+//    };
+//
+//
+//    return ( winOrLose( player , dealer ) ) ;
+    return true ;
 }
 
 // true if the player busts

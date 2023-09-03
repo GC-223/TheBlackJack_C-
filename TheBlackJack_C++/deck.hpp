@@ -25,7 +25,6 @@ void printHand( const T& hand )
         printCard( card ) ;
         std::cout << ' ' ;
     }
-    std::cout << '\n' ;
 }
 
 

@@ -34,4 +34,8 @@ bool isBust( Player& player ) ;
 // true if playerWins
 bool winOrLose( Player& player , Player& dealer ) ;
 
+void startingHands( std::vector<Player>& players , const std::array<Card, 52>& deck , int& deckIndex ) ;
+
+
+
 #endif /* blackJack_hpp */
