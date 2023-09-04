@@ -60,16 +60,22 @@ bool playBlackJack( const std::array<Card, 52>& deck )
 // true if the player busts
 bool playerTurn( const std::array<Card, 52>& deck , Player& player , int& deckIndex )
 {
+    
+    std::cout << "\n\n\n" << player.name << " Hand: " ;
+    printHand( player.hand ) ;
+    std::cout << '\t' << player.name << " Score: " << evaluateHand( player ) << '\n' ;
+    
     while ( true )
     {
         if ( hitOrStay( player ) )
         {
             std::cout << player.name << " drew a " ;
             printCard( deck[deckIndex] ) ;
-            std::cout << '\n' ;
             dealCard( deck, player, deckIndex ) ;
+            
+            std::cout << "\n\n" << player.name << " Hand: " ;
             printHand( player.hand ) ;
-            std::cout << "Score: " << evaluateHand( player ) << '\n' ;
+            std::cout << '\t' << player.name << " Score: " << evaluateHand( player ) << '\n' ;
             
             if ( isBust( player ) )
             {

@@ -80,22 +80,29 @@ void printAllPlayers( const std::vector<Player>& players )
         printHand( players[p].hand ) ;
         std::cout << '\t' << players[p].name << " Score: " << evaluateHand( players[p] ) << '\n' ;
     }
+    
 }
 
 // lets revamp dealerTurn
 // Return true if bust
 bool dealerTurn( const std::array<Card, 52>& deck, Player& dealer, int& deckIndex )
 {
+    
+    std::cout << "\n\n\n" << dealer.name << " Hand: " ;
+    printHand( dealer.hand ) ;
+    std::cout << "\t\t" << dealer.name << " Score: " << evaluateHand( dealer ) << '\n' ;
+    
     while ( true )
     {
         if ( evaluateHand(dealer) < 17 )
         {
             std::cout << dealer.name << " drew a " ;
             printCard( deck[deckIndex] ) ;
-            std::cout << '\n' ;
             dealCard( deck, dealer, deckIndex ) ;
+            
+            std::cout << "\n\n" << dealer.name << " Hand: " ;
             printHand( dealer.hand ) ;
-            std::cout << "Score: " << evaluateHand( dealer ) << '\n' ;
+            std::cout << '\t' << dealer.name << " Score: " << evaluateHand( dealer ) << '\n' ;
             
             if ( isBust( dealer ) )
             {
