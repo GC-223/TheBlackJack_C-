@@ -16,7 +16,7 @@ struct Player
 {
     std::string name { } ;
     std::vector<Card> hand { } ;
-    bool isBust { false } ;
+    bool busted { false } ;
 } ;
 
 // Get the total score of the hand

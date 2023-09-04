@@ -26,7 +26,7 @@ bool playerTurn( const std::array<Card, 52>& deck , Player& player , int& deckIn
 bool dealerTurn( const std::array<Card, 52>& deck , Player& player , int& deckIndex ) ;
 
 // true if hit
-bool hitOrStay() ;
+bool hitOrStay( const Player& player ) ;
 
 // true if bust
 bool isBust( Player& player ) ;
@@ -36,6 +36,6 @@ bool winOrLose( Player& player , Player& dealer ) ;
 
 void startingHands( std::vector<Player>& players , const std::array<Card, 52>& deck , int& deckIndex ) ;
 
-
+void play ( std::vector<Player>& players , const std::array<Card, 52>& deck, int& deckIndex ) ;
 
 #endif /* blackJack_hpp */

@@ -82,10 +82,54 @@ void printAllPlayers( const std::vector<Player>& players )
     }
 }
 
-// a function to loop through all players for each turn
-void play ( std::vector<Player>& players )
+// lets revamp dealerTurn
+// Return true if bust
+bool dealerTurn( const std::array<Card, 52>& deck, Player& dealer, int& deckIndex )
 {
-    for ( int i = 0 )
+    while ( true )
+    {
+        if ( evaluateHand(dealer) < 17 )
+        {
+            std::cout << dealer.name << " drew a " ;
+            printCard( deck[deckIndex] ) ;
+            std::cout << '\n' ;
+            dealCard( deck, dealer, deckIndex ) ;
+            printHand( dealer.hand ) ;
+            std::cout << "Score: " << evaluateHand( dealer ) << '\n' ;
+            
+            if ( isBust( dealer ) )
+            {
+                std::cout << dealer.name << " Bust\n" ;
+                return true ;
+            }
+        }
+        else
+        {
+            return false ;
+        }
+    }
+}
+
+// a function to loop through all players for each turn
+void play ( std::vector<Player>& players , const std::array<Card, 52>& deck, int& deckIndex )
+{
+    for ( int p = 0 ; p < players.size() ; ++p )
+    {
+        if ( players[p].name == "Dealer" )
+        {
+            if ( dealerTurn( deck, players[p], deckIndex ) )
+            {
+                players[p].busted = true ;
+            }
+        }
+        else
+        {
+            if ( playerTurn( deck, players[p], deckIndex ) )
+            {
+                players[p].busted = true ;
+            }
+        }
+    }
 }
 
 

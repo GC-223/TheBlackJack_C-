@@ -39,6 +39,8 @@ bool playBlackJack( const std::array<Card, 52>& deck )
     
     printAllPlayers( players ) ;
     
+    play( players , deck , deckIndex ) ;
+    
     // if player busts
 //    if ( playerTurn( deck , player , deckIndex ) )
 //    {
@@ -60,7 +62,7 @@ bool playerTurn( const std::array<Card, 52>& deck , Player& player , int& deckIn
 {
     while ( true )
     {
-        if ( hitOrStay() )
+        if ( hitOrStay( player ) )
         {
             std::cout << player.name << " drew a " ;
             printCard( deck[deckIndex] ) ;
@@ -83,38 +85,38 @@ bool playerTurn( const std::array<Card, 52>& deck , Player& player , int& deckIn
 }
 
 // return true if the dealer busts
-bool dealerTurn( const std::array<Card, 52>& deck , Player& player , int& deckIndex )
-{
-    while ( true )
-    {
-        if ( evaluateHand(player) < 17 )
-        {
-            std::cout << player.name << " drew a " ;
-            printCard( deck[deckIndex] ) ;
-            std::cout << '\n' ;
-            dealCard( deck, player, deckIndex ) ;
-            printHand( player.hand ) ;
-            std::cout << "Score: " << evaluateHand( player ) << '\n' ;
-            
-            if ( isBust( player ) )
-            {
-                std::cout << player.name << " Bust\n" ;
-                return true ;
-            }
-        }
-        else
-        {
-            return false ;
-        }
-    }
-}
+//bool dealerTurn( const std::array<Card, 52>& deck , Player& player , int& deckIndex )
+//{
+//    while ( true )
+//    {
+//        if ( evaluateHand(player) < 17 )
+//        {
+//            std::cout << player.name << " drew a " ;
+//            printCard( deck[deckIndex] ) ;
+//            std::cout << '\n' ;
+//            dealCard( deck, player, deckIndex ) ;
+//            printHand( player.hand ) ;
+//            std::cout << "Score: " << evaluateHand( player ) << '\n' ;
+//
+//            if ( isBust( player ) )
+//            {
+//                std::cout << player.name << " Bust\n" ;
+//                return true ;
+//            }
+//        }
+//        else
+//        {
+//            return false ;
+//        }
+//    }
+//}
 
 // true if hit
-bool hitOrStay()
+bool hitOrStay( const Player& player )
 {
     while ( true )
     {
-        std::cout << "Hit or Stay (h or s)? " ;
+        std::cout << player.name << ": Hit or Stay (h or s)? " ;
         char input { } ;
         std::cin >> input ;
         std::cin.ignore( 1000 , '\n' ) ;
