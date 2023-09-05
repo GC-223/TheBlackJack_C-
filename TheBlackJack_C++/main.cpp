@@ -16,19 +16,17 @@
 
 
 
-// a function to evaluate the initialScore
+// a function to printPlayerInfo
+void printOnePlayer( const Player& player )
+{
+    std::cout << player.name << " Hand: " ;
+    printHand( player.hand ) ;
+    
+    std::cout << "\t\t" << player.name << " Score: " << player.score << '\n' ;
+}
 
 
-// a function to tell if win or lost
-// true for win
-//bool winOrLose( const Player& player, const Player& dealer )
-//{
-//    if ( isBust( player ) )
-//    {
-//        return false ;
-//    }
-//    else if ( player.)
-//}
+
 
 
 // a function to loop through all players for each turn

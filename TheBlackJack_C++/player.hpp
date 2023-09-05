@@ -18,6 +18,8 @@ struct Player
     std::vector<Card> hand { } ;
     int score { 0 } ;
     
+    int numChips { 0 } ;
+    
     bool busted { false } ;
 } ;
 

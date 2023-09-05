@@ -13,16 +13,11 @@ void printAllPlayers( const std::vector<Player>& players )
 {
     int dealerIndex { static_cast<int>(players.size() - 1) } ;
 
-    std::cout << players[dealerIndex].name << " Hand: " ;
-    printHand( players[dealerIndex].hand ) ;
+    printOnePlayer( players[dealerIndex] ) ;
 
-    std::cout << "\t\t" << players[dealerIndex].name << " Score: " << players[dealerIndex].score << '\n' ;
-
-    for ( int p = 0 ; p < players.size() - 1 ; ++p )
+    for ( int p = 0 ; p < dealerIndex ; ++p )
     {
-        std::cout << players[p].name << " Hand: " ;
-        printHand( players[p].hand ) ;
-        std::cout << '\t' << players[p].name << " Score: " << players[p].score << '\n' ;
+        printOnePlayer( players[p] ) ;
     }
 
 }
@@ -30,10 +25,9 @@ void printAllPlayers( const std::vector<Player>& players )
 // true if the player busts
 bool playerTurn( const std::array<Card, 52>& deck , Player& player , int& deckIndex )
 {
+    std::cout << "\n\n\n" ;
     
-    std::cout << "\n\n\n" << player.name << " Hand: " ;
-    printHand( player.hand ) ;
-    std::cout << '\t' << player.name << " Score: " << player.score << '\n' ;
+    printOnePlayer( static_cast<const Player>( player ) ) ;
     
     while ( true )
     {
@@ -45,11 +39,8 @@ bool playerTurn( const std::array<Card, 52>& deck , Player& player , int& deckIn
             player.score += getCardValue( deck[deckIndex].rank ) ;
             dealCard( deck, player, deckIndex ) ;
             
-            
-            std::cout << "\n\n" << player.name << " Hand: " ;
-            printHand( player.hand ) ;
-            
-            std::cout << '\t' << player.name << " Score: " << player.score << '\n' ;
+            std::cout << "\n\n" ;
+            printOnePlayer( static_cast<const Player>( player ) ) ;
             
             if ( isBust( player ) )
             {
@@ -69,11 +60,9 @@ bool playerTurn( const std::array<Card, 52>& deck , Player& player , int& deckIn
 // Return true if bust
 bool dealerTurn( const std::array<Card, 52>& deck, Player& dealer, int& deckIndex )
 {
+    std::cout << "\n\n\n" ;
     
-    std::cout << "\n\n\n" << dealer.name << " Hand: " ;
-    printHand( dealer.hand ) ;
-    
-    std::cout << "\t\t" << dealer.name << " Score: " << dealer.score << '\n' ;
+    printOnePlayer( static_cast<const Player>( dealer ) ) ;
     
     while ( true )
     {
@@ -85,9 +74,8 @@ bool dealerTurn( const std::array<Card, 52>& deck, Player& dealer, int& deckInde
             dealer.score += getCardValue( deck[deckIndex].rank ) ;
             dealCard( deck, dealer, deckIndex ) ;
             
-            std::cout << "\n\n" << dealer.name << " Hand: " ;
-            printHand( dealer.hand ) ;
-            std::cout << "\t\t" << dealer.name << " Score: " << dealer.score << '\n' ;
+            std::cout << "\n\n" ;
+            printOnePlayer( static_cast<const Player>( dealer ) ) ;
             
             if ( isBust( dealer ) )
             {
@@ -101,7 +89,6 @@ bool dealerTurn( const std::array<Card, 52>& deck, Player& dealer, int& deckInde
         }
     }
 }
-
 
 
 // true if hit
@@ -132,12 +119,6 @@ bool hitOrStay( const Player& player )
 bool isBust( const Player& player )
 {
     return player.score > 21 ;
-}
-
-// true if playerWins
-bool winOrLose( Player& player , Player& dealer )
-{
-    return evaluateHand( player ) > evaluateHand( dealer ) ;
 }
 
 

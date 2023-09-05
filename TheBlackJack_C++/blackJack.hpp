@@ -31,14 +31,17 @@ bool hitOrStay( const Player& player ) ;
 // true if bust
 bool isBust( const Player& player ) ;
 
-// true if playerWins
-bool winOrLose( Player& player , Player& dealer ) ;
-
+// deals starting amount of cards
 void startingHands( std::vector<Player>& players , const std::array<Card, 52>& deck , int& deckIndex ) ;
 
-int getNumPlayers() ;
 
+
+// prints info for all players
 void printAllPlayers( const std::vector<Player>& players ) ;
+
+// prints info for one player
+void printOnePlayer( const Player& player ) ;
+
 
 
 
