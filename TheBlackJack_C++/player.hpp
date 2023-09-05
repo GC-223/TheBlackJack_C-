@@ -16,6 +16,8 @@ struct Player
 {
     std::string name { } ;
     std::vector<Card> hand { } ;
+    int score { 0 } ;
+    
     bool busted { false } ;
 } ;
 

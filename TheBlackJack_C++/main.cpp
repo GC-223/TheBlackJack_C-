@@ -16,16 +16,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
+// a function to evaluate the initialScore
 
 
 // a function to tell if win or lost
