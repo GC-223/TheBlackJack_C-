@@ -12,8 +12,9 @@
 #include <iostream>
 #include <random>
 
-#include "card.hpp"
 #include "player.hpp"
+#include "card.hpp"
+
 
 
 // we can print the player hand, or we can print the entire deck for this function

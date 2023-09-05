@@ -8,6 +8,25 @@
 #include "blackJack.hpp"
 
  
+// now a function to print each players information
+void printAllPlayers( const std::vector<Player>& players )
+{
+    int dealerIndex { static_cast<int>(players.size() - 1) } ;
+
+    std::cout << players[dealerIndex].name << " Hand: " ;
+    printHand( players[dealerIndex].hand ) ;
+
+    std::cout << "\t\t" << players[dealerIndex].name << " Score: " << evaluateHand( players[dealerIndex] ) << '\n' ;
+
+    for ( int p = 0 ; p < players.size() - 1 ; ++p )
+    {
+        std::cout << players[p].name << " Hand: " ;
+        printHand( players[p].hand ) ;
+        std::cout << '\t' << players[p].name << " Score: " << evaluateHand( players[p] ) << '\n' ;
+    }
+
+}
+
 // true if the player wins
 bool playBlackJack( const std::array<Card, 52>& deck )
 {
@@ -37,9 +56,8 @@ bool playBlackJack( const std::array<Card, 52>& deck )
 
     startingHands( players , deck , deckIndex ) ;
     
-    printAllPlayers( players ) ;
+//    printAllPlayers( players ) ;
     
-    play( players , deck , deckIndex ) ;
     
     // if player busts
 //    if ( playerTurn( deck , player , deckIndex ) )
@@ -90,32 +108,42 @@ bool playerTurn( const std::array<Card, 52>& deck , Player& player , int& deckIn
     }
 }
 
-// return true if the dealer busts
-//bool dealerTurn( const std::array<Card, 52>& deck , Player& player , int& deckIndex )
-//{
-//    while ( true )
-//    {
-//        if ( evaluateHand(player) < 17 )
-//        {
-//            std::cout << player.name << " drew a " ;
-//            printCard( deck[deckIndex] ) ;
-//            std::cout << '\n' ;
-//            dealCard( deck, player, deckIndex ) ;
-//            printHand( player.hand ) ;
-//            std::cout << "Score: " << evaluateHand( player ) << '\n' ;
-//
-//            if ( isBust( player ) )
-//            {
-//                std::cout << player.name << " Bust\n" ;
-//                return true ;
-//            }
-//        }
-//        else
-//        {
-//            return false ;
-//        }
-//    }
-//}
+
+// lets revamp dealerTurn
+// Return true if bust
+bool dealerTurn( const std::array<Card, 52>& deck, Player& dealer, int& deckIndex )
+{
+    
+    std::cout << "\n\n\n" << dealer.name << " Hand: " ;
+    printHand( dealer.hand ) ;
+    std::cout << "\t\t" << dealer.name << " Score: " << evaluateHand( dealer ) << '\n' ;
+    
+    while ( true )
+    {
+        if ( evaluateHand(dealer) < 17 )
+        {
+            std::cout << dealer.name << " drew a " ;
+            printCard( deck[deckIndex] ) ;
+            dealCard( deck, dealer, deckIndex ) ;
+            
+            std::cout << "\n\n" << dealer.name << " Hand: " ;
+            printHand( dealer.hand ) ;
+            std::cout << "\t\t" << dealer.name << " Score: " << evaluateHand( dealer ) << '\n' ;
+            
+            if ( isBust( dealer ) )
+            {
+                std::cout << dealer.name << " Bust\n" ;
+                return true ;
+            }
+        }
+        else
+        {
+            return false ;
+        }
+    }
+}
+
+
 
 // true if hit
 bool hitOrStay( const Player& player )
@@ -142,7 +170,7 @@ bool hitOrStay( const Player& player )
 }
 
 // true if bust
-bool isBust( Player& player )
+bool isBust( const Player& player )
 {
     return evaluateHand( player ) > 21 ;
 }
@@ -151,4 +179,25 @@ bool isBust( Player& player )
 bool winOrLose( Player& player , Player& dealer )
 {
     return evaluateHand( player ) > evaluateHand( dealer ) ;
+}
+
+
+// a function to deal the starting amount of cards
+void startingHands( std::vector<Player>& players , const std::array<Card, 52>& deck , int& deckIndex )
+{
+    for ( int p = 0 ; p < players.size() ; ++p )
+    {
+        if ( players[p].name == "Dealer" )
+        {
+            dealCard( deck, players[p], deckIndex ) ;
+            ++deckIndex ;
+        }
+        else
+        {
+            dealCard( deck, players[p], deckIndex ) ;
+            ++deckIndex ;
+            dealCard( deck, players[p], deckIndex ) ;
+            ++deckIndex ;
+        }
+    }
 }

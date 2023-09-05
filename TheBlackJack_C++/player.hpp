@@ -26,6 +26,6 @@ int getNumPlayers() ;
 
 void givePlayerName( std::vector<Player>& players ) ;
 
-void printAllPlayers( const std::vector<Player>& players ) ;
+
 
 #endif /* player_hpp */
